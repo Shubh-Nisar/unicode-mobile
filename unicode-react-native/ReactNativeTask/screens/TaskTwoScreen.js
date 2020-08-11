@@ -48,7 +48,7 @@ const TaskTwoScreen = (props) => {
                     onPress={() => {
                         Linking.openURL(`mailto:${email}`)
                     }}
-                    title={email}
+                    title={String(email)}
                     />
                 </View>
                 <View style={styles.aboutHeaderContainer}>

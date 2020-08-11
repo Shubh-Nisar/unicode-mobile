@@ -9,6 +9,7 @@ import Colors from '../constants/Colors';
 import TaskOneScreen from '../screens/TaskOneScreen';
 import TaskTwoScreen from '../screens/TaskTwoScreen';
 import TaskThreeScreen from '../screens/TaskThreeScreen';
+import TaskThreeDetailScreen from '../screens/TaskThreeDetailScreen';
 import TaskFourScreen from '../screens/TaskFourScreen';
 
 const defaultNavOptions = {
@@ -38,6 +39,7 @@ const TaskTwoNavigator = createStackNavigator(
 const TaskThreeNavigator = createStackNavigator(
     {
         TaskThree: TaskThreeScreen,
+        TaskThreeDetail: TaskThreeDetailScreen,
     }, {
         defaultNavigationOptions: defaultNavOptions
     }
