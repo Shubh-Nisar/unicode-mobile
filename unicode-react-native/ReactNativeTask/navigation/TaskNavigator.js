@@ -14,9 +14,9 @@ import TaskFourScreen from '../screens/TaskFourScreen';
 
 const defaultNavOptions = {
     headerStyle: {
-        backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
+        backgroundColor: Platform.OS === 'android' ? Colors.bar : ''
     },
-    headerTintColor: Platform.OS === 'android' ? Colors.secondary : Colors.primary
+    headerTintColor: Platform.OS === 'android' ? Colors.secondary : Colors.primary,
 };
 
 const TaskOneNavigator = createStackNavigator(
@@ -54,16 +54,36 @@ const TaskFourNavigator = createStackNavigator(
 );
 const TaskNavigator = createDrawerNavigator(
     {
-    TaskOneDrawer: TaskOneNavigator,
-    TaskTwoDrawer: TaskTwoNavigator,
-    TaskThreeDrawer: TaskThreeNavigator,
-    TaskFourDrawer: TaskFourNavigator,
+    TaskOneDrawer: {screen: TaskOneNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'Task 1'
+        }
+    )},
+    TaskTwoDrawer: {screen: TaskTwoNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'Task 2'
+        }
+    )},
+    TaskThreeDrawer: {screen: TaskThreeNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'Task 3'
+        }
+    )},
+    TaskFourDrawer: {screen: TaskFourNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'Task 4'
+        }
+    )},
     }, 
     {
     contentOptions: {
-        activeTintColor: Colors.primary
+        activeTintColor: '#2196f3',
+        labelStyle: {
+            color: Colors.secondary,
         }
-    }
+        },
+        drawerBackgroundColor: Colors.primary,
+    },
 );
 
 export default createAppContainer(TaskNavigator);

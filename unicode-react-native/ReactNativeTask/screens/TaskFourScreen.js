@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, Alert, Dimensions } from 'react-native';
 import MenuIcon from 'react-native-vector-icons/FontAwesome';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 
@@ -39,11 +39,12 @@ const TaskFourScreen = () => {
         <View style={styles.screen}>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ClimateX</Text>
-                <Text>[ Search for a city's weather at one click! ]</Text>
+                <Text style={{color: Colors.secondary, opacity: 0.8}}>[ Search for a city's weather at one click! ]</Text>
             </View>
             <View style={styles.searchContainer}>
                 <View style={styles.searchField}>
                     <Input 
+                    style={{backgroundColor: Colors.secondary, color: Colors.primary, opacity: 0.9}}
                     value={city}
                     onChangeText={(city) => setCity(city)}
                     placeholder='Search by City name'/>
@@ -94,8 +95,8 @@ const TaskFourScreen = () => {
                         </View>
                         </Card>
                         <View style={styles.latLongContainer}>
-                            <Text style={{marginRight: 10}}>[ Latitude : {convertedData.coord.lat}</Text>
-                            <Text style={{marginLeft: 10}}>Longitude : {convertedData.coord.lon} ]</Text>
+                            <Text style={styles.lat}>[ Latitude : {convertedData.coord.lat}</Text>
+                            <Text style={styles.long}>Longitude : {convertedData.coord.lon} ]</Text>
                         </View>
                     </View>
                 )}
@@ -118,7 +119,9 @@ TaskFourScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
     screen: {
-        margin: 10,
+        backgroundColor: Colors.background,
+        height: Dimensions.get('window').height,
+        padding: 20,
     },
     titleContainer: {
         justifyContent: 'center',
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
+        color: Colors.secondary,
     },
     searchContainer: {
         flexDirection: 'row',
@@ -157,10 +161,12 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: 4,
+        color: Colors.secondary
     },
     description: {
         textTransform: 'uppercase', 
-        color: '#616161', 
+        color: Colors.secondary,
+        opacity: 0.75, 
         marginBottom: 5,
         borderBottomColor: '#616161',
         borderBottomWidth: 1,
@@ -175,6 +181,7 @@ const styles = StyleSheet.create({
     temperature: {
         marginHorizontal: 20,
         fontSize: 18,
+        color: Colors.secondary,
     },
     pressureAndWindContainer: {
         //flexDirection: 'row',
@@ -190,14 +197,25 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         padding: 5,
+        color: Colors.secondary,
     },
     latLongContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         textAlign: 'center',
-        color: Colors.primary,
+        color: Colors.secondary,
         marginVertical: 10,
+    },
+    lat: {
+        marginRight: 10,
+        color: Colors.secondary,
+        opacity: 0.75,
+    },
+    long: {
+        marginLeft: 10,
+        color: Colors.secondary,
+        opacity: 0.75,
     },
 });
 

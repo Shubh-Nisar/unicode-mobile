@@ -28,7 +28,7 @@ const TaskOneScreen = (props) => {
                     <Input 
                     onChangeText={(text) => setName(text)}
                     value={name}
-                    style={styles.name} 
+                    style={styles.input} 
                     placeholder='Name'
                     />
 
@@ -36,7 +36,7 @@ const TaskOneScreen = (props) => {
                     <Input 
                     onChangeText={(birthdate) => setBirthdate(birthdate)}
                     value={birthdate}
-                    style={styles.birthdate} 
+                    style={styles.input} 
                     placeholder='Birthdate [ dd/mm/yyyy ]'
                     />
 
@@ -44,7 +44,7 @@ const TaskOneScreen = (props) => {
                     <Input 
                     onChangeText={(phone) => setPhone(phone)}
                     value={phone}
-                    style={styles.contactNumber} 
+                    style={styles.input} 
                     placeholder='Contact Number'
                     keyboardType='phone-pad'
                     />  
@@ -53,7 +53,7 @@ const TaskOneScreen = (props) => {
                     <Input 
                     onChangeText={(email) => setEmail(email)}
                     value={email}
-                    style={styles.email}
+                    style={styles.input}
                     placeholder='Email'
                     keyboardType='email-address'
                     />    
@@ -62,7 +62,7 @@ const TaskOneScreen = (props) => {
                     <Input 
                     onChangeText={(aboutUser) => setAbout(aboutUser)}
                     value={about}
-                    style={styles.about}
+                    style={styles.input}
                     multiline={true}
                     placeholder='Tell us about you...'
                     />             
@@ -138,6 +138,7 @@ export default TaskOneScreen;
 const styles = StyleSheet.create({
     screen: {
         padding: 20,
+        backgroundColor: Colors.background
     },
     titleContainer: {
         justifyContent: 'center',
@@ -151,12 +152,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 22,
         fontWeight: 'bold',
+        color: Colors.secondary,
     },
     label: {
         paddingHorizontal: 10,
         fontWeight: 'bold',
         marginTop: 10,
         paddingVertical: 0,
+        color: Colors.secondary,
+    },
+    input: {
+        backgroundColor: Colors.secondary,
+        color: Colors.primary,
     },
     buttonContainer: {
         flexDirection: 'row',

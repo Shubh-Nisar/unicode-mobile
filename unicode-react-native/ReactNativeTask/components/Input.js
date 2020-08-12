@@ -5,7 +5,7 @@ const Input = (props) => {
     return (
         <TextInput
         {...props}
-        style={styles.commonStyles} 
+        style={{...styles.commonStyles, ...props.style}} 
         placeholder={props.placeholder}
         />
     );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button, Linking } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Button, Linking, Dimensions } from 'react-native';
 import MenuIcon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -29,7 +29,7 @@ const TaskTwoScreen = (props) => {
                 </View>
                 <View style={styles.dobContainer}>
                     <Text style={styles.dob}>
-                        <MenuIcon name='calendar' size={23} style={{marginLeft: 15}} color={Colors.primary}/>
+                        <MenuIcon name='calendar' size={23} style={{marginRight: 15, opacity: 0.75}} color={Colors.secondary}/>
                         DOB: {birthdate}
                     </Text>
                 </View>
@@ -55,7 +55,7 @@ const TaskTwoScreen = (props) => {
                     <Text style={styles.aboutHeader}>About {name} :</Text>
                 </View>
                 <View style={styles.aboutContainer}>
-                    <Text>{about}</Text>
+                    <Text style={{color: Colors.secondary}}>{about}</Text>
                 </View>
             </View>
         </ScrollView>
@@ -74,8 +74,13 @@ TaskTwoScreen.navigationOptions = navData => {
 };
 
 const styles = StyleSheet.create({
+    screen: {
+        //flex: 1,
+        backgroundColor: Colors.background,
+        height: Dimensions.get('window').height,
+    },
     greetContainer: {
-        flex: 1,
+        //flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
@@ -92,10 +97,15 @@ const styles = StyleSheet.create({
     dob: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: Colors.secondary,
+        opacity: 0.75,
     },
     greet: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         fontSize: 37,
+        color: Colors.secondary,
+        textTransform: 'uppercase',
+        letterSpacing: 4,
     },
     phoneContainer: {
         marginHorizontal: 20,
@@ -119,11 +129,13 @@ const styles = StyleSheet.create({
     aboutHeader: {
         fontSize: 20,
         fontWeight: 'bold',
+        color: Colors.secondary,
     },
     aboutContainer: {
+        backgroundColor: Colors.primary,
         marginHorizontal: 20,
-        borderColor: Colors.primary,
-        borderWidth: 2,
+        borderColor: Colors.secondary,
+        borderWidth: 1,
         borderRadius: 10,
         padding: 10,
     }

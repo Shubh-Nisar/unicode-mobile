@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, PermissionsAndroid, Alert, Button, FlatList, StyleSheet } from 'react-native';
+import { View, Text, PermissionsAndroid, Alert, Button, FlatList, StyleSheet, Dimensions } from 'react-native';
 import MenuIcon from 'react-native-vector-icons/FontAwesome';
 import Contacts from 'react-native-contacts';
 
@@ -85,8 +85,9 @@ TaskThreeScreen.navigationOptions = navData => {
 
 const styles = StyleSheet.create({
   screen: {
-    width: '90%',
-    margin: 20,
+    backgroundColor: Colors.background,
+    height: Dimensions.get('window').height,
+    padding: 20,
   },
   titleContainer: {
     justifyContent: 'center',
@@ -98,6 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
     letterSpacing: 4,
+    color: Colors.secondary,
   },
   fetchContainer: {
     marginVertical: 10,
@@ -116,6 +118,8 @@ const styles = StyleSheet.create({
   },
   data: {
     fontSize: 20,
+    color: Colors.secondary,
+    opacity: 0.9,
   },
 });
 

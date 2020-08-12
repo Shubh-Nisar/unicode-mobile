@@ -1,4 +1,6 @@
 export default {
-    primary: '#000000',
-    secondary: 'grey',
+    primary: '#333',
+    background: '#111',
+    secondary: '#fff',
+    bar: '#000'
 };
