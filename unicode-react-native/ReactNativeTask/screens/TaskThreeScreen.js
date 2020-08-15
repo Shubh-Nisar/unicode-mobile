@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, PermissionsAndroid, Alert, Button, FlatList, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, PermissionsAndroid, Alert, Button, FlatList, StyleSheet, Dimensions, ScrollView, TouchableOpacity, TouchableNativeFeedback, Platform, Image } from 'react-native';
 import MenuIcon from 'react-native-vector-icons/FontAwesome';
 import Contacts from 'react-native-contacts';
 
 import Colors from '../constants/Colors';
 
 const TaskThreeScreen = (props) => {
+  var TouchableCmp = TouchableOpacity;
+  if(Platform.OS === "android" && Platform.Version >= 21){
+    //TouchableCmp = TouchableNativeFeedback;
+  }
     const [contacts, setContacts] = useState([]);
     const requestContactsPermission = async () => {
         try {
@@ -39,19 +43,20 @@ const TaskThreeScreen = (props) => {
         }
       };
       console.log(contacts);
-      const detailScreenHandler = (id) => {
+      const detailScreenHandler = (item) => {
         props.navigation.navigate('TaskThreeDetail',
         { 
-          individualContactId: contacts[parseInt(id) - 1].rawContactId,
+          //individualContactId: id,
           //name: contacts.givenName,
           //surname: contacts.familyName,
           //company: contacts.company,
-          contact: contacts[parseInt(id)-1],
+          contact: item,
       });
       };
     return (
         <View style={styles.screen}>
-            <View style={styles.titleContainer}>
+              <View style={{flex: 1}}>
+              <View style={styles.titleContainer}>
               <Text style={styles.title}>Contacts</Text>
             </View>
             <View style={styles.fetchContainer}>
@@ -60,13 +65,22 @@ const TaskThreeScreen = (props) => {
             <View style={styles.flatlistContainer}>
               <FlatList 
               data={contacts}
-              keyExtractor={item => item.rawContactId}
+              keyExtractor={item => item.phoneNumbers[0].id}
               renderItem={itemData => (
+                <TouchableCmp>
                 <View style={styles.dataContainer}>
-                  <Text onPress={detailScreenHandler.bind(this, itemData.item.rawContactId)} style={styles.data}>{itemData.item.displayName}</Text>
+                  <Text 
+                  numberOfLines={1} 
+                  onPress={detailScreenHandler.bind(this, itemData.item)} 
+                  style={styles.data}>
+                  <MenuIcon name='user' size={23} color={Colors.secondary}/>  {itemData.item.displayName}
+                  </Text>
                 </View>
+                </TouchableCmp>
               )}
               />
+            </View>
+            <View style={styles.endContainer}></View>
             </View>
         </View>
     );
@@ -88,6 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     height: Dimensions.get('window').height,
     padding: 20,
+    marginBottom: 50,
   },
   titleContainer: {
     justifyContent: 'center',
@@ -109,6 +124,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 2,
     paddingVertical: 10,
     paddingHorizontal: 5,
+    height: Dimensions.get('window').height*0.75,
   },
   dataContainer: {
     paddingVertical: 10,
@@ -121,6 +137,10 @@ const styles = StyleSheet.create({
     color: Colors.secondary,
     opacity: 0.9,
   },
+  endContainer: {
+    width: '100%',
+    marginBottom: 100,
+},
 });
 
 export default TaskThreeScreen;

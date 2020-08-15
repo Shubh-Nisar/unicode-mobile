@@ -21,11 +21,20 @@ const TaskTwoScreen = (props) => {
         console.log(email);
     };
     profile();
+
+    if(name === null || birthdate === null || phone === null || email === null){
+        return (
+            <View style={styles.noDataContainer}>
+                <Text style={styles.noData}>Please fill out all the compulsory fields to access this part of the app.</Text>
+            </View>
+        );
+    }
     return (
-        <ScrollView>
+        <View>
+            <ScrollView>
             <View style={styles.screen}>
                 <View style={styles.greetContainer}>
-                    <Text style={styles.greet}>{name}</Text>
+                    <Text style={styles.greet} numberOfLines={2}>{name}</Text>
                 </View>
                 <View style={styles.dobContainer}>
                     <Text style={styles.dob}>
@@ -43,13 +52,13 @@ const TaskTwoScreen = (props) => {
                     />
                 </View>
                 <View style={styles.emailContainer}>
-                    <Button
-                    color={Colors.primary}
+                    <Text
+                    style={styles.email}
                     onPress={() => {
                         Linking.openURL(`mailto:${email}`)
-                    }}
-                    title={String(email)}
-                    />
+                    }}>
+                        {email}
+                    </Text>
                 </View>
                 <View style={styles.aboutHeaderContainer}>
                     <Text style={styles.aboutHeader}>About {name} :</Text>
@@ -59,6 +68,7 @@ const TaskTwoScreen = (props) => {
                 </View>
             </View>
         </ScrollView>
+        </View>
     );
 };
 
@@ -95,14 +105,14 @@ const styles = StyleSheet.create({
         borderBottomWidth: 3,
     },
     dob: {
-        fontSize: 20,
+        fontSize: Dimensions.get('window').width > 450 ? 20 : 16,
         fontWeight: 'bold',
         color: Colors.secondary,
         opacity: 0.75,
     },
     greet: {
         //fontWeight: 'bold',
-        fontSize: 37,
+        fontSize: Dimensions.get('window').width > 450 ? 37 : 27,
         color: Colors.secondary,
         textTransform: 'uppercase',
         letterSpacing: 4,
@@ -115,9 +125,13 @@ const styles = StyleSheet.create({
     emailContainer: {
         marginHorizontal: 20,
         marginVertical: 8,
-        paddingBottom: 15,
-        borderBottomColor: Colors.primary,
-        borderBottomWidth: 1,
+        padding: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.primary,
+    },
+    email: {
+        color: Colors.secondary,
     },
     aboutHeaderContainer: {
         justifyContent: "center",
@@ -125,11 +139,15 @@ const styles = StyleSheet.create({
         textAlign: 'left',
         marginHorizontal: 20,
         marginVertical: 10,
+        paddingTop: 10,
+        borderTopColor: Colors.primary,
+        borderTopWidth: 2,
     },
     aboutHeader: {
         fontSize: 20,
         fontWeight: 'bold',
         color: Colors.secondary,
+        textTransform: 'capitalize',
     },
     aboutContainer: {
         backgroundColor: Colors.primary,
@@ -138,7 +156,19 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         padding: 10,
-    }
+    },
+    noDataContainer: {
+        height: Dimensions.get('window').height,
+        width: Dimensions.get('window').width,
+        backgroundColor: Colors.background,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    noData: {
+        textAlign: 'center',
+        color: Colors.secondary,
+    },
 });
 
 export default TaskTwoScreen;

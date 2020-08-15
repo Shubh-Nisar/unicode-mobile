@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Button, Alert, Dimensions, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native';
 import MenuIcon from 'react-native-vector-icons/FontAwesome';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -18,13 +18,37 @@ const TaskOneScreen = (props) => {
     const [phone, setPhone] = useState(null);
     const [email, setEmail] = useState('');
     const [about, setAbout] = useState('');
+    const [theme, setTheme] = useState('lightTheme');
+
+    const fetchPreviousDataHandler = async () => {
+        try{
+            setName(await AsyncStorage.getItem('name_key'));
+            setBirthdate(await AsyncStorage.getItem('dob_key'));
+            setPhone(await AsyncStorage.getItem('phone_key'));
+            setEmail(await AsyncStorage.getItem('email_key'));
+            setAbout(await AsyncStorage.getItem('about_key'));
+        } catch (err){
+            Alert.alert('Error',`${err}`, [{
+                text: 'Okay',
+                style: 'cancel',
+            }]);
+        }
+    };
 
     return (
-        <ScrollView>
-            <View style={styles.screen}>
+        <View style={styles.screen}>
+            <KeyboardAvoidingView 
+                style={{ flex: 1 }}
+                behavior="padding"
+                keyboardVerticalOffset={100}
+            >
+            <ScrollView>
+            <View>
                 <View style={styles.titleContainer}><Text style={styles.title}>Profile Details</Text></View>
+                <Button title='Edit Existing Data' color={Colors.primary} onPress={fetchPreviousDataHandler}/>
+                <TouchableWithoutFeedback>
                 <View>
-                    <Text style={styles.label}>Name</Text>
+                    <Text style={styles.label}>Name <Text style={styles.compulsory}>*</Text></Text>
                     <Input 
                     onChangeText={(text) => setName(text)}
                     value={name}
@@ -32,7 +56,7 @@ const TaskOneScreen = (props) => {
                     placeholder='Name'
                     />
 
-                    <Text style={styles.label}>DOB</Text>
+                    <Text style={styles.label}>DOB <Text style={styles.compulsory}>*</Text></Text>
                     <Input 
                     onChangeText={(birthdate) => setBirthdate(birthdate)}
                     value={birthdate}
@@ -40,7 +64,7 @@ const TaskOneScreen = (props) => {
                     placeholder='Birthdate [ dd/mm/yyyy ]'
                     />
 
-                    <Text style={styles.label}>Contact Number</Text>
+                    <Text style={styles.label}>Contact Number <Text style={styles.compulsory}>*</Text></Text>
                     <Input 
                     onChangeText={(phone) => setPhone(phone)}
                     value={phone}
@@ -49,7 +73,7 @@ const TaskOneScreen = (props) => {
                     keyboardType='phone-pad'
                     />  
 
-                    <Text style={styles.label}>Email</Text>
+                    <Text style={styles.label}>Email <Text style={styles.compulsory}>*</Text></Text>
                     <Input 
                     onChangeText={(email) => setEmail(email)}
                     value={email}
@@ -67,6 +91,7 @@ const TaskOneScreen = (props) => {
                     placeholder='Tell us about you...'
                     />             
                 </View>
+                </TouchableWithoutFeedback>
                 <View style={styles.buttonContainer}>
                     <View style={styles.clearButtonContainer}>
                         <Button 
@@ -87,6 +112,7 @@ const TaskOneScreen = (props) => {
                                     setAbout(null);
                                     await AsyncStorage.clear();
                                     console.log('Cleared');
+                                    props.navigation.navigate('TaskTwo');
                                 },
                             }]);
                         }}
@@ -117,8 +143,11 @@ const TaskOneScreen = (props) => {
                         />
                     </View>
                 </View>
+                <View style={styles.endContainer}></View>
             </View>
         </ScrollView>
+        </KeyboardAvoidingView>
+        </View>
     );
 };
 
@@ -137,8 +166,9 @@ export default TaskOneScreen;
 
 const styles = StyleSheet.create({
     screen: {
+        backgroundColor: Colors.background,
+        height: Dimensions.get('window').height,
         padding: 20,
-        backgroundColor: Colors.background
     },
     titleContainer: {
         justifyContent: 'center',
@@ -161,6 +191,9 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         color: Colors.secondary,
     },
+    compulsory: {
+        color: '#f44336'
+    },
     input: {
         backgroundColor: Colors.secondary,
         color: Colors.primary,
@@ -178,5 +211,9 @@ const styles = StyleSheet.create({
     saveButtonContainer: {
         flex: 1,
         marginHorizontal: 10,
+    },
+    endContainer: {
+        width: '100%',
+        marginBottom: 70,
     },
 });

@@ -11,6 +11,8 @@ import TaskTwoScreen from '../screens/TaskTwoScreen';
 import TaskThreeScreen from '../screens/TaskThreeScreen';
 import TaskThreeDetailScreen from '../screens/TaskThreeDetailScreen';
 import TaskFourScreen from '../screens/TaskFourScreen';
+import NewsScreen from '../screens/NewsScreen';
+import AboutScreen from '../screens/AboutScreen';
 
 const defaultNavOptions = {
     headerStyle: {
@@ -52,6 +54,22 @@ const TaskFourNavigator = createStackNavigator(
         defaultNavigationOptions: defaultNavOptions
     }
 );
+
+const NewsNavigator = createStackNavigator(
+    {
+        News: NewsScreen,
+    }, {
+        defaultNavigationOptions: defaultNavOptions
+    }
+);
+
+const AboutNavigator = createStackNavigator(
+    {
+        About: AboutScreen,
+    }, {
+        defaultNavigationOptions: defaultNavOptions
+    });
+
 const TaskNavigator = createDrawerNavigator(
     {
     TaskOneDrawer: {screen: TaskOneNavigator, navigationOptions: () => (
@@ -74,10 +92,21 @@ const TaskNavigator = createDrawerNavigator(
             drawerLabel: 'Task 4'
         }
     )},
+    NewsDrawer: {screen: NewsNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'News'
+        }
+    )},
+    AboutDrawer: {screen: AboutNavigator, navigationOptions: () => (
+        {
+            drawerLabel: 'About'
+        }
+    )}
     }, 
     {
     contentOptions: {
         activeTintColor: '#2196f3',
+        activeBackgroundColor: '#333',
         labelStyle: {
             color: Colors.secondary,
         }

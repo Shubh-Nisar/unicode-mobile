@@ -13,12 +13,12 @@ const TaskThreeDetailScreen = props => {
                 <View>
                     <View style={styles.nameContainer}>
                         <Text style={styles.name}>{contact.displayName}</Text>
-                        <Text style={{color: Colors.secondary, opacity: 0.8}}>[Click on number, email-ID or website to open it.]</Text>
+                        <Text style={styles.click}>[Click on number, email-ID or website to open it.]</Text>
                     </View>
                     <Card style={styles.card}>
                     <View style={styles.commonContainer}>
                         <Text style={styles.subHeader}>Number</Text>
-                        {contact.phoneNumbers.map(elem => <View key={elem.number}>
+                        {contact.phoneNumbers.map(elem => <View key={elem.id}>
                             <Text style={styles.common} onPress={() => {Linking.openURL(`tel:${elem.number}`)}}>
                             {elem.label} : {elem.number}
                             </Text>
@@ -43,7 +43,7 @@ const TaskThreeDetailScreen = props => {
                     {contact.urlAddresses[0] && (<View style={styles.commonContainer}>
                         <Text style={styles.subHeader}>Websites</Text>
                         {contact.urlAddresses.map(elem => <View key={elem.id}>
-                            <Text style={styles.common} onPress={() => {Linking.openURL(elem.url)}}>
+                            <Text style={{...styles.common, ...{color: '#2196f3'}}} onPress={() => {Linking.openURL(elem.url)}}>
                                 {elem.url}
                             </Text>
                         </View>)}
@@ -57,7 +57,7 @@ const TaskThreeDetailScreen = props => {
 };
 
 TaskThreeDetailScreen.navigationOptions = navData => {
-    const id = navData.navigation.getParam('individualContactId');
+    //const id = navData.navigation.getParam('individualContactId');
     contact = navData.navigation.getParam('contact');
     console.log(contact);
     return {
@@ -80,11 +80,16 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     },
     name: {
-        fontSize: 32,
+        fontSize: Dimensions.get('window').width > 450 ? 32 : 26,
         fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: 4,
         color: Colors.secondary,
+    },
+    click: {
+        color: Colors.secondary, 
+        opacity: 0.8,
+        fontSize: Dimensions.get('window').width > 450 ? 18 : 12,
     },
     card: {
         padding: 10,
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
     },
     subHeader: {
         textTransform: 'uppercase',
-        fontSize: 22,
+        fontSize: Dimensions.get('window').width > 450 ? 22 : 18,
         color: Colors.secondary,
     },
     commonContainer: {
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     common: {
-        fontSize: 18,
+        fontSize: Dimensions.get('window').width > 450 ? 18 : 14,
         //textTransform: 'capitalize',
         textAlign: 'left',
         paddingVertical: 5,

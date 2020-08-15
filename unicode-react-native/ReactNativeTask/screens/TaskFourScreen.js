@@ -12,12 +12,13 @@ const TaskFourScreen = () => {
     const [city, setCity] = useState('');
     const [convertedData, setConvertedData] = useState(null);
     const weatherData = async () => {
+        setCity('');
         try{
             const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=bdc15df4898a5892a4920468f59ae5de`);
         if(!data.ok){
             console.log('Error');
             return (
-                Alert.alert('Error', 'Some error has occured, please try again', [{
+                Alert.alert('Error', `Could not find ${city} city or some server issue. Please retry again`, [{
                     text: 'Okay'
                 }])
             );
@@ -35,8 +36,9 @@ const TaskFourScreen = () => {
         }
     };
     return (
-        <ScrollView>
         <View style={styles.screen}>
+            <ScrollView>
+        <View>
             <View style={styles.titleContainer}>
                 <Text style={styles.title}>ClimateX</Text>
                 <Text style={{color: Colors.secondary, opacity: 0.8}}>[ Search for a city's weather at one click! ]</Text>
@@ -101,8 +103,10 @@ const TaskFourScreen = () => {
                     </View>
                 )}
             </View>
+            <View style={styles.endContainer}></View>
         </View>
         </ScrollView>
+        </View>
     );
 };
 
@@ -216,6 +220,10 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         color: Colors.secondary,
         opacity: 0.75,
+    },
+    endContainer: {
+        width: '100%',
+        marginBottom: 70,
     },
 });
 
